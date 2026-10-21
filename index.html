@@ -543,11 +543,14 @@
       resultCount.textContent =
         jobs.length + (jobs.length > 1 ? " offres" : " offre");
 
-      if (!jobs.length) {
+      if (!jobs.length) { 
         emptyState.querySelector("strong").textContent =
-          "Votre demande a été envoyée";
+            "Aucune offre trouvée";
+
         emptyState.querySelector("p").textContent =
-          "Pour afficher les offres ici, le webhook n8n doit renvoyer les résultats en JSON.";
+            "Aucune offre ne correspond à « " +
+              ((data && data.keyword) || "") +
+          " ». Essayez des mots-clés en anglais comme engineer, react ou mysql.";
         return;
       }
 
