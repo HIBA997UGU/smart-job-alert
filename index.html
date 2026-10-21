@@ -634,7 +634,7 @@
         email: document.getElementById("email").value.trim()
       };
 
-      if (!payload.keyword || !payload.location || !payload.email) {
+      if (!payload.keyword || !payload.email) {
         showStatus("Veuillez remplir tous les champs.", "error");
         return;
       }
