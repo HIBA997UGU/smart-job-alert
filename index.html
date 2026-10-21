@@ -4,158 +4,692 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Job Alert</title>
+
+  <title>Smart Job Alert | Trouvez votre opportunité</title>
+  <meta name="description" content="Recherchez des offres d'emploi développeur et recevez des alertes personnalisées.">
 
   <style>
+    :root {
+      --primary: #635bff;
+      --primary-dark: #5046e5;
+      --text: #182230;
+      --muted: #667085;
+      --border: #e5e7eb;
+      --background: #f7f8fc;
+      --white: #ffffff;
+      --success: #067647;
+      --danger: #b42318;
+    }
+
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      padding: 40px 16px;
-      font-family: Arial, sans-serif;
-      background: #f1f5f9;
-      color: #1e293b;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    .container {
-      max-width: 480px;
-      margin: auto;
-      padding: 28px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px #00000010;
+    header {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8%;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      border-radius: 12px;
+      color: white;
+      background: var(--primary);
+      font-size: 21px;
+    }
+
+    .header-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    main {
+      width: min(1100px, 90%);
+      margin: 55px auto 70px;
+    }
+
+    .hero {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 36px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--primary);
+      background: #eeedff;
+      padding: 6px 13px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 18px;
     }
 
     h1 {
-      color: #2563eb;
-      margin-bottom: 8px;
+      font-size: clamp(32px, 5vw, 49px);
+      line-height: 1.15;
+      letter-spacing: -1.8px;
+      margin-bottom: 18px;
     }
 
-    .description {
-      color: #64748b;
-      line-height: 1.5;
+    h1 span {
+      color: var(--primary);
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 590px;
+      margin: auto;
+    }
+
+    .search-card {
+      max-width: 760px;
+      margin: auto;
+      padding: 32px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(24, 34, 48, 0.05);
+    }
+
+    .card-heading {
+      margin-bottom: 25px;
+    }
+
+    .card-heading h2 {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .card-heading p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 21px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
     }
 
     label {
-      display: block;
-      margin-top: 18px;
-      font-weight: bold;
+      font-size: 13px;
+      font-weight: 700;
     }
 
-    input, select, button {
+    input, select {
       width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 15px;
+      height: 48px;
+      padding: 0 13px;
+      font: inherit;
+      font-size: 14px;
+      color: var(--text);
+      background: white;
+      border: 1px solid #d0d5dd;
+      border-radius: 9px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    button {
-      margin-top: 24px;
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.12);
+    }
+
+    input::placeholder {
+      color: #98a2b3;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .submit-btn {
+      width: 100%;
+      min-height: 50px;
+      margin-top: 25px;
       border: none;
-      background: #2563eb;
+      border-radius: 10px;
       color: white;
-      font-weight: bold;
+      background: var(--primary);
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
-    #message {
-      margin-top: 15px;
-      color: #475569;
+    .submit-btn:disabled {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 13px 15px;
+      border-radius: 9px;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .status.visible {
+      display: block;
+    }
+
+    .status.success {
+      color: var(--success);
+      background: #ecfdf3;
+    }
+
+    .status.error {
+      color: var(--danger);
+      background: #fef3f2;
+    }
+
+    .results {
+      margin-top: 42px;
+    }
+
+    .results-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .results-heading h2 {
+      font-size: 23px;
+    }
+
+    .result-count {
+      font-size: 12px;
+      color: var(--muted);
+      background: #eaecf0;
+      padding: 5px 10px;
+      border-radius: 20px;
+    }
+
+    .empty-state {
+      padding: 35px 20px;
+      text-align: center;
+      color: var(--muted);
+      background: white;
+      border: 1px dashed #d0d5dd;
+      border-radius: 15px;
+    }
+
+    .empty-icon {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .job-list {
+      display: grid;
+      gap: 15px;
+    }
+
+    .job-card {
+      padding: 23px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .job-card:hover {
+      border-color: #c7c4ff;
+      box-shadow: 0 7px 22px rgba(24, 34, 48, 0.05);
+    }
+
+    .job-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .job-card h3 {
+      font-size: 18px;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      overflow-wrap: anywhere;
+    }
+
+    .company {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .score {
+      flex-shrink: 0;
+      padding: 5px 10px;
+      background: #eeedff;
+      color: var(--primary);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 17px;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      background: #f2f4f7;
+      color: #475467;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .job-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .job-link:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      padding: 25px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        height: 66px;
+        padding: 0 5%;
+      }
+
+      .header-label {
+        display: none;
+      }
+
+      main {
+        width: 92%;
+        margin-top: 36px;
+      }
+
+      .search-card {
+        padding: 22px 18px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .job-top {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="container">
-    <h1>Smart Job Alert </h1>
+  <header>
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+      <span>Smart Job Alert</span>
+    </div>
+    <div class="header-label">Your next opportunity starts here</div>
+  </header>
 
-    <p class="description">
-      Trouvez des offres d'emploi adaptées à votre profil.
-    </p>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">SMART JOB SEARCH</div>
+      <h1>Find your next <span>opportunity.</span></h1>
+      <p>
+        Recherchez des offres adaptées à vos compétences.
+        Recevez des alertes personnalisées et gagnez du temps dans votre recherche.
+      </p>
+    </section>
 
-    <form id="jobForm">
-      <label for="site">Site d'emploi</label>
-      <select id="site" name="site">
-        <option value="himalayas">Himalayas</option>
-        <option value="indeed">Indeed Maroc</option>
-        <option value="rekrute">ReKrute</option>
-      </select>
+    <section class="search-card">
+      <div class="card-heading">
+        <h2>Rechercher des offres</h2>
+        <p>Personnalisez votre recherche en quelques secondes.</p>
+      </div>
 
-      <label for="keyword">Mot-clé</label>
-      <input
-        id="keyword"
-        name="keyword"
-        placeholder="Ex. Full Stack"
-        required
-      >
+      <form id="jobForm">
+        <div class="form-grid">
+          <div class="field">
+            <label for="site">Source des offres</label>
+            <select id="site" name="site" required>
+              <option value="himalayas">Himalayas</option>
+              <option value="rekrute">ReKrute (en préparation)</option>
+            </select>
+            <span class="hint">Choisissez le site de recherche.</span>
+          </div>
 
-      <label for="location">Ville</label>
-      <input
-        id="location"
-        name="location"
-        placeholder="Ex. Casablanca"
-      >
+          <div class="field">
+            <label for="keyword">Mot-clé</label>
+            <input
+              id="keyword"
+              name="keyword"
+              type="text"
+              placeholder="Ex. React, PHP, MySQL"
+              required
+            >
+          </div>
 
-      <label for="email">Votre email</label>
-      <input
-        id="email"
-        name="email"
-        type="email"
-        placeholder="vous@email.com"
-        required
-      >
+          <div class="field">
+            <label for="location">Localisation</label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              placeholder="Ex. Casablanca, Remote"
+              required
+            >
+          </div>
 
-      <button type="submit">Rechercher les offres</button>
-    </form>
+          <div class="field">
+            <label for="email">Adresse e-mail</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="vous@exemple.com"
+              required
+            >
+          </div>
+        </div>
 
-    <p id="message"></p>
+        <button class="submit-btn" id="submitBtn" type="submit">
+          Rechercher les offres →
+        </button>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="results" id="resultsSection">
+      <div class="results-heading">
+        <h2>Résultats de recherche</h2>
+        <span class="result-count" id="resultCount">0 offre</span>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">⌕</div>
+        <strong>Prêt à trouver votre prochaine opportunité ?</strong>
+        <p>Remplissez le formulaire pour commencer votre recherche.</p>
+      </div>
+
+      <div class="job-list" id="jobList"></div>
+    </section>
   </main>
 
+  <footer>
+    © 2026 Smart Job Alert · Trouvez votre prochaine opportunité.
+  </footer>
+
   <script>
+    // URL de test n8n : à remplacer par l'URL de production lors du déploiement.
+    const WEBHOOK_URL =
+      "https://h4m.app.n8n.cloud/webhook-test/smart-job-alert";
+
     const form = document.getElementById("jobForm");
-    const message = document.getElementById("message");
-    const webhookURL = "https://h4m.app.n8n.cloud/webhook-test/smart-job-alert";
+    const submitBtn = document.getElementById("submitBtn");
+    const statusBox = document.getElementById("status");
+    const jobList = document.getElementById("jobList");
+    const emptyState = document.getElementById("emptyState");
+    const resultCount = document.getElementById("resultCount");
 
-    form.addEventListener("submit", async function(event) {
-    event.preventDefault();
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = "status visible " + type;
+    }
 
-    const preferences = {
-        site: document.getElementById("site").value,
-        keyword: document.getElementById("keyword").value,
-        location: document.getElementById("location").value,
-        email: document.getElementById("email").value
-    };
+    function getText(value) {
+      if (Array.isArray(value)) return value.join(", ");
+      if (value === undefined || value === null || value === "") {
+        return "Non précisé";
+      }
+      return String(value);
+    }
 
-    message.textContent = "Envoi en cours...";
+    function createTextElement(tag, className, value) {
+      const element = document.createElement(tag);
+      element.className = className;
+      element.textContent = value;
+      return element;
+    }
 
-    try {
-        const response = await fetch(webhookURL, {
-        method: "POST",
-        headers: {
+    function renderJobs(data) {
+      // Accepte un tableau JSON, ou un objet contenant jobs/offers/results.
+      let jobs = Array.isArray(data)
+        ? data
+        : data && Array.isArray(data.jobs)
+          ? data.jobs
+          : data && Array.isArray(data.offers)
+            ? data.offers
+            : data && Array.isArray(data.results)
+              ? data.results
+              : data && data.title
+                ? [data]
+                : [];
+
+      jobList.replaceChildren();
+      emptyState.style.display = jobs.length ? "none" : "block";
+      resultCount.textContent =
+        jobs.length + (jobs.length > 1 ? " offres" : " offre");
+
+      if (!jobs.length) {
+        emptyState.querySelector("strong").textContent =
+          "Votre demande a été envoyée";
+        emptyState.querySelector("p").textContent =
+          "Pour afficher les offres ici, le webhook n8n doit renvoyer les résultats en JSON.";
+        return;
+      }
+
+      jobs.forEach((job) => {
+        const card = document.createElement("article");
+        card.className = "job-card";
+
+        const top = document.createElement("div");
+        top.className = "job-top";
+
+        const info = document.createElement("div");
+        info.appendChild(createTextElement("h3", "", getText(job.title)));
+        info.appendChild(
+          createTextElement(
+            "p",
+            "company",
+            getText(job.companyName || job.company)
+          )
+        );
+
+        top.appendChild(info);
+
+        if (job.score !== undefined && job.score !== null) {
+          top.appendChild(
+            createTextElement("span", "score", "Score : " + job.score)
+          );
+        }
+
+        card.appendChild(top);
+
+        const meta = document.createElement("div");
+        meta.className = "job-meta";
+        meta.appendChild(
+          createTextElement("span", "tag", getText(job.employmentType || job.type))
+        );
+        meta.appendChild(
+          createTextElement("span", "tag", getText(job.seniority))
+        );
+        meta.appendChild(
+          createTextElement("span", "tag", getText(job.source))
+        );
+        card.appendChild(meta);
+
+        const url = job.applicationLink || job.link || job.url;
+
+        if (url) {
+          try {
+            const parsedUrl = new URL(url);
+            if (parsedUrl.protocol === "https:" || parsedUrl.protocol === "http:") {
+              const link = document.createElement("a");
+              link.className = "job-link";
+              link.href = parsedUrl.href;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.textContent = "Consulter l'offre →";
+              card.appendChild(link);
+            }
+          } catch (error) {
+            // Ignore les liens invalides.
+          }
+        }
+
+        jobList.appendChild(card);
+      });
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const site = document.getElementById("site").value;
+
+      if (site === "rekrute") {
+        showStatus(
+          "La source ReKrute n'est pas encore configurée dans n8n. Choisissez Himalayas pour le test.",
+          "error"
+        );
+        return;
+      }
+
+      const payload = {
+        site,
+        keyword: document.getElementById("keyword").value.trim(),
+        location: document.getElementById("location").value.trim(),
+        email: document.getElementById("email").value.trim()
+      };
+
+      if (!payload.keyword || !payload.location || !payload.email) {
+        showStatus("Veuillez remplir tous les champs.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Recherche en cours...";
+      showStatus("Envoi de votre recherche à Smart Job Alert...", "success");
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json"
-        },
-        body: JSON.stringify(preferences)
+          },
+          body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
-        throw new Error("Erreur HTTP : " + response.status);
+          throw new Error("Le serveur a répondu avec le statut " + response.status);
         }
 
-        message.textContent = "Informations envoyées à n8n !";
-    } catch (error) {
-        message.textContent =
-        "Erreur de connexion. Vérifie le Webhook n8n.";
-        console.error(error);
-    }
+        const responseText = await response.text();
+        let data = null;
+
+        if (responseText.trim()) {
+          try {
+            data = JSON.parse(responseText);
+          } catch (error) {
+            data = null;
+          }
+        }
+
+        if (data !== null) {
+          renderJobs(data);
+          showStatus(
+            "Votre recherche a été traitée par le webhook.",
+            "success"
+          );
+        } else {
+          showStatus(
+            "Votre demande a été envoyée. L'affichage des offres nécessite une réponse JSON du workflow n8n.",
+            "success"
+          );
+        }
+      } catch (error) {
+        showStatus(
+          "Impossible de contacter n8n. Vérifiez que le webhook de test est en écoute et que l'URL est correcte.",
+          "error"
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Rechercher les offres →";
+      }
     });
-</script>
+  </script>
 </body>
 </html>
