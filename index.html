@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Job Alert</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 16px;
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 28px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px #00000010;
+    }
+
+    h1 {
+      color: #2563eb;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #64748b;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      font-weight: bold;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 24px;
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    #message {
+      margin-top: 15px;
+      color: #475569;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1>Smart Job Alert </h1>
+
+    <p class="description">
+      Trouvez des offres d'emploi adaptées à votre profil.
+    </p>
+
+    <form id="jobForm">
+      <label for="site">Site d'emploi</label>
+      <select id="site" name="site">
+        <option value="himalayas">Himalayas</option>
+        <option value="indeed">Indeed Maroc</option>
+        <option value="rekrute">ReKrute</option>
+      </select>
+
+      <label for="keyword">Mot-clé</label>
+      <input
+        id="keyword"
+        name="keyword"
+        placeholder="Ex. Full Stack"
+        required
+      >
+
+      <label for="location">Ville</label>
+      <input
+        id="location"
+        name="location"
+        placeholder="Ex. Casablanca"
+      >
+
+      <label for="email">Votre email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="vous@email.com"
+        required
+      >
+
+      <button type="submit">Rechercher les offres</button>
+    </form>
+
+    <p id="message"></p>
+  </main>
+
+  <script>
+    const form = document.getElementById("jobForm");
+    const message = document.getElementById("message");
+    const webhookURL = "https://h4m.app.n8n.cloud/webhook-test/smart-job-alert";
+
+    form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const preferences = {
+        site: document.getElementById("site").value,
+        keyword: document.getElementById("keyword").value,
+        location: document.getElementById("location").value,
+        email: document.getElementById("email").value
+    };
+
+    message.textContent = "Envoi en cours...";
+
+    try {
+        const response = await fetch(webhookURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(preferences)
+        });
+
+        if (!response.ok) {
+        throw new Error("Erreur HTTP : " + response.status);
+        }
+
+        message.textContent = "Informations envoyées à n8n !";
+    } catch (error) {
+        message.textContent =
+        "Erreur de connexion. Vérifie le Webhook n8n.";
+        console.error(error);
+    }
+    });
+</script>
+</body>
+</html>
