@@ -635,7 +635,7 @@
       };
 
       if (!payload.keyword || !payload.email) {
-        showStatus("Veuillez remplir tous les champs.", "error");
+       showStatus("Veuillez remplir le mot-clé et l'email.", "error");
         return;
       }
 
@@ -681,7 +681,7 @@
         }
       } catch (error) {
         showStatus(
-          "Impossible de contacter n8n. Vérifiez que le webhook de test est en écoute et que l'URL est correcte.",
+          ""Impossible de contacter Smart Job Alert. Vérifiez l'URL du webhook et que le workflow n8n est publié."",
           "error"
         );
       } finally {
